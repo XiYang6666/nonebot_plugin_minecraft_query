@@ -1,0 +1,2 @@
+# nonebot_plugin_minecraft_query
+基于NoneBot的Minecraft服务器查询插件
