@@ -277,15 +277,15 @@ async def setting_group_set(bot: Bot, event: GroupMessageEvent, path:str, value)
         for i in range(len(key_list)):
             key = key_list[i]
             key = int(key) if re.match(r"^-?[0-9]*$",key) else key
-            if i == len(key_list)-1:
+            if i == (len(key_list)-1):
                 temp[key] = value
             else:
                 temp = temp[key]
             
     except KeyError:
-        await bot.send(event, plugin_config.format.group_setting_failed)
+        await bot.send(event, plugin_config.format.group_setting_failed.format(reason="KeyError"))
     except json.decoder.JSONDecodeError:
-        await bot.send(event, plugin_config.format.group_setting_failed)
+        await bot.send(event, plugin_config.format.group_setting_failed.format(reason="JSONDecodeError"))
     else:
         await bot.send(event, plugin_config.format.group_setting_success)
 
@@ -300,7 +300,7 @@ async def setting_group_get(bot: Bot, event: GroupMessageEvent, path:str):
             key = int(key) if re.match(r"^-?[0-9]*$",key) else key
             temp = temp[key]
     except KeyError:
-        await bot.send(event, plugin_config.format.group_setting_read_failed)
+        await bot.send(event, plugin_config.format.group_setting_read_failed.format(reason="KeyError"))
     else:
         await bot.send(event, f"{type(temp).__name__.upper()} {temp}")
 

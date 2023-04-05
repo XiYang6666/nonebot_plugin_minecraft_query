@@ -56,10 +56,10 @@ class Config(BaseModel, extra=Extra.ignore):
             "配置更改成功"
         )
         group_setting_failed = (
-            "配置更改失败"
+            "配置更改失败 原因:{reason}"
         )
         group_setting_read_failed = (
-            "配置读取失败"
+            "配置读取失败 原因:{reason}"
         )
         group_insufficient_permissions = (
             "权限不足"
