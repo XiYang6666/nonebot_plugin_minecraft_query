@@ -266,7 +266,7 @@ async def remove_server(bot: Bot, event: GroupMessageEvent, name: str):
         await bot.send(event, plugin_config.format.group_server_remove_failed)
 
 
-async def setting_group_set(bot: Bot, event: GroupMessageEvent, path:str, value):
+async def setting_group_set(bot: Bot, event: GroupMessageEvent, path: str, value):
     servers_data.get_group_data(bot.self_id, str(event.group_id))
     group_data = servers_data.config_data["bots"][bot.self_id]["groups"][str(event.group_id)]
 
@@ -276,12 +276,12 @@ async def setting_group_set(bot: Bot, event: GroupMessageEvent, path:str, value)
         key_list = path.split(".") if path != "." else []
         for i in range(len(key_list)):
             key = key_list[i]
-            key = int(key) if re.match(r"^-?[0-9]*$",key) else key
-            if i == (len(key_list)-1):
+            key = int(key) if re.match(r"^-?[0-9]*$", key) else key
+            if i == (len(key_list) - 1):
                 temp[key] = value
             else:
                 temp = temp[key]
-            
+
     except KeyError:
         await bot.send(event, plugin_config.format.group_setting_failed.format(reason="KeyError"))
     except json.decoder.JSONDecodeError:
@@ -290,18 +290,16 @@ async def setting_group_set(bot: Bot, event: GroupMessageEvent, path:str, value)
         await bot.send(event, plugin_config.format.group_setting_success)
 
 
-async def setting_group_get(bot: Bot, event: GroupMessageEvent, path:str):
+async def setting_group_get(bot: Bot, event: GroupMessageEvent, path: str):
     group_data = servers_data.get_group_data(bot.self_id, str(event.group_id))
     try:
         temp = group_data
         key_list = path.split(".") if path != "." else []
         for i in range(len(key_list)):
             key = key_list[i]
-            key = int(key) if re.match(r"^-?[0-9]*$",key) else key
+            key = int(key) if re.match(r"^-?[0-9]*$", key) else key
             temp = temp[key]
     except KeyError:
         await bot.send(event, plugin_config.format.group_setting_read_failed.format(reason="KeyError"))
     else:
-        await bot.send(event, f"{type(temp).__name__.upper()} {temp}")
-
-
+        await bot.send(event, f"{type(temp).__name__.upper()} {json.dumps(temp,indent=4, ensure_ascii=False)}")
