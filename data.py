@@ -2,10 +2,9 @@ import json
 import os
 import hashlib
 import base64
-from typing import Literal
 
 from nonebot import get_driver
-from nonebot.adapters.onebot.v11 import GroupMessageEvent, Message, MessageSegment
+from nonebot.adapters.onebot.v11 import Message, MessageSegment
 import mcstatus
 
 

@@ -1,18 +1,13 @@
 import hashlib
-import base64
-import os
 import asyncio
 import time
-import typing
 import json
 import re
-from typing import Union, List
 
-import nonebot
 from nonebot import get_driver, get_bots, require, on_shell_command
-from nonebot.params import CommandArg, ShellCommandArgs
-from nonebot.permission import SUPERUSER, Permission
-from nonebot.adapters.onebot.v11 import GroupMessageEvent, Message, MessageSegment
+from nonebot.params import ShellCommandArgs
+from nonebot.permission import SUPERUSER
+from nonebot.adapters.onebot.v11 import GroupMessageEvent, Message
 from nonebot.internal.adapter.bot import Bot
 from nonebot.rule import Namespace, ArgumentParser
 from nonebot.log import logger
