@@ -1,0 +1,46 @@
+{
+    "enable": {
+        "group_name": "服务器测试",
+        "enable": true,
+        "enable_query": true,
+        "enable_check": true,
+        "servers": [
+            {
+                "name": "看飞碟",
+                "host": "mc.kanfeidie.com",
+                "port": 19132,
+                "type": "bedrock"
+            },
+            {
+                "name": "看飞碟-AM临时服",
+                "host": "121.62.18.169",
+                "port": 48480,
+                "type": "bedrock"
+            },
+            {
+                "name": "XiYang6666私服",
+                "host": "mc.xiyang6666.top",
+                "port": 12536,
+                "type": "java"
+            },
+            {
+                "name": "XiYang6666私服-基岩版",
+                "host": "mc.xiyang6666.top",
+                "port": 41502,
+                "type": "bedrock"
+            },
+            {
+                "name": "2b2b.xin",
+                "host": "2b2t.xin",
+                "port": 25565,
+                "type": "java"
+            }
+        ]
+    },
+    "enable_query": true,
+    "enable_check": true,
+    "name": "看飞碟",
+    "host": "mc.kanfeidie.com",
+    "port": 19132,
+    "type": "bedrock"
+}
