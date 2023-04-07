@@ -32,7 +32,7 @@ async def queryServerStatusChanged():
     状态改变则向群聊发送消息
     """
 
-    logger.debug(f"开始查询服务器在线状态")
+    # logger.debug(f"开始查询服务器在线状态")
     start_time = time.time()
 
     async def async_func_query(server: data.Server, server_hash: str):
@@ -84,7 +84,7 @@ async def queryServerStatusChanged():
     if tasks:
         await asyncio.wait(tasks)
 
-    logger.debug(f"查询服务器在线完成 共耗时 {((time.time()-start_time)*1000):.0f}ms")
+    # logger.debug(f"查询服务器在线完成 共耗时 {((time.time()-start_time)*1000):.0f}ms")
 
 
 parser = ArgumentParser("mc")
@@ -192,7 +192,7 @@ async def query_group(bot: Bot, event: GroupMessageEvent):
     else:
         await bot.send(event, message=plugin_config.format.group_start_query)
 
-    logger.debug("开始查询群聊服务器")
+    logger.info("开始查询群聊服务器")
 
     async def async_query_server(server: data.Server, server_hash: str):
         status = await server.status()
