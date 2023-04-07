@@ -58,7 +58,7 @@ async def queryServerStatusChanged():
     if tasks:
         await asyncio.wait(tasks)
 
-    logger.debug(f"查询服务器状态完成,开始发送消息 耗时 {((time.time()-start_time)*1000):.0f}ms")
+    # logger.debug(f"查询服务器状态完成,开始发送消息 耗时 {((time.time()-start_time)*1000):.0f}ms")
 
     # 发送消息
     tasks = []
