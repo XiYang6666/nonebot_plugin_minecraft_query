@@ -276,7 +276,7 @@ async def setting_group_set(bot: Bot, event: GroupMessageEvent, path: str, value
                 temp[key] = value
             else:
                 temp = temp[key]
-
+        servers_data.save_config_data()
     except KeyError:
         await bot.send(event, plugin_config.format.group_setting_failed.format(reason="KeyError"))
     except json.decoder.JSONDecodeError:
@@ -294,6 +294,7 @@ async def setting_group_get(bot: Bot, event: GroupMessageEvent, path: str):
             key = key_list[i]
             key = int(key) if re.match(r"^-?[0-9]*$", key) else key
             temp = temp[key]
+        
     except KeyError:
         await bot.send(event, plugin_config.format.group_setting_read_failed.format(reason="KeyError"))
     else:

@@ -143,24 +143,35 @@ class ServersMap:
         }
     }
 
+    loading = False
+
     def __init__(self, parent):
         self.parent = parent
 
     def load_data(self, config_data):
+        self.loading = True
         self.data = {}
         for bot_id in config_data["bots"]:
             for group_id in config_data["bots"][bot_id]["groups"]:
                 for server_data in config_data["bots"][bot_id]["groups"][group_id]["servers"]:
                     self.add_server(bot_id, group_id, server_data)
+        self.loading = False
 
-    def reload_data(self, config_data=data.copy()):
-        self.data = {}
+    def reload_data(self, config_data):
+        self.data = {} # 清空配置
+        temp_data = self.data.copy()
         self.load_data(config_data)
+        self.loading = True
+        # 同步服务器状态
+        for server_hash in self.data:
+            if server_hash in temp_data:
+                self.data[server_hash]["server"] = temp_data[server_hash]["server"]
+        self.loading = False
 
     def add_server(self, bot_id, group_id, server_data):
-        # print(server_data)
         server_hash = hashlib.sha256(f"{server_data['host']}:{server_data['port']}".encode()).hexdigest()
         bot_group_key = f"{bot_id} {group_id}"
+        self.loading = True
         if not server_hash in self.data:
             self.data[server_hash] = {
                 "bot_groups": {},
@@ -198,11 +209,14 @@ class ServersMap:
             #       }
             #   }
             #
+        self.loading = False
         return True
 
     def remove_group_server(self, bot_id, group_id, server_data):
         server_hash = hashlib.sha256(f"{server_data['host']}:{server_data['port']}".encode()).hexdigest()
+        self.loading = True
         self.data[server_hash]["bot_groups"].pop(f"{bot_id} {group_id}")
+        self.loading = False
 
     def get_server(self, server_hash: str):
         return {
@@ -362,8 +376,8 @@ class Data:
                 "enable": False,
                 "enable_query": True,
                 "enable_check": True,
+                "enable_custom_query": True,
                 "servers": []
-            
             }
 
         bot_data = self.get_bot_data(bot_id)
